@@ -1,3 +1,16 @@
+This is a fork of [md-img-paste.vim](https://github.com/ferrine/md-img-paste.vim) that changes the syntax from
+
+`![](img/image1.png)`
+
+to
+
+`!image1.png!`
+
+To comply with [Confluence Wiki markup](https://confluence.atlassian.com/doc/confluence-wiki-markup-251003035.html#ConfluenceWikiMarkup-Images)
+
+## Additional options
+The behavior is controlled by a new global variable `g:mdip_behavior`. If not set, the standard behavior is followed. If set to "confluencewiki" — the image is pasted with confluencewiki markup.
+
 # md-img-paste.vim
 Yet simple tool to paste images into markdown files
 
@@ -20,7 +33,7 @@ autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownCli
 " let g:mdip_imgname = 'image'
 ```
 
-### For linux user
+### For Linux user
 This plugin gets clipboard content by running the `xclip` command.
 
 install `xclip` first.
