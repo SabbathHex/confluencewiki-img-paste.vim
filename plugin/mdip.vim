@@ -184,9 +184,24 @@ function! mdip#MarkdownClipboardImage()
         " let relpath = s:SaveNewFile(g:mdip_imgdir, tmpfile)
         let extension = split(tmpfile, '\.')[-1]
         let relpath = g:mdip_imgdir_intext . '/' . g:mdip_tmpname . '.' . extension
-        execute "normal! i![" . g:mdip_tmpname[0:0]
         let ipos = getcurpos()
-        execute "normal! a" . g:mdip_tmpname[1:] . "](" . relpath . ")"
+        " The image prefix_pt1 and prefix_pt2 are separated so that the user's cursor is placed on the image name in markdown
+        if g:mdip_behavior == "confluencewiki"
+            let image_prefix_pt1 = "!"
+            let image_prefix_pt2 = ""
+            let image_postfix = "!"
+            " For confluencewiki the path has to be the same as the image file name, since it is an attachment to the page
+            " e.g. !image.png!
+            let image_path = g:mdip_tmpname . '.' . extension
+        else
+            let image_prefix_pt1 = "![I"
+            let image_prefix_pt2 = "mage]("
+            let image_postfix = ")"
+            let image_path = g:mdip_imgdir_intext . '/' . g:mdip_tmpname . '.' . extension
+        endif
+        execute "normal! i" . image_prefix_pt1
+        let ipos = getcurpos()
+        execute "normal! a" . image_prefix_pt2 . image_path . image_postfix
         call setpos('.', ipos)
         execute "normal! vt]\<C-g>"
     endif
@@ -208,4 +223,7 @@ if !exists('g:mdip_tmpname')
 endif
 if !exists('g:mdip_imgname')
     let g:mdip_imgname = 'image'
+endif
+if !exists('g:mdip_behavior')
+	let g:mdip_behavior = 'markdown'
 endif
