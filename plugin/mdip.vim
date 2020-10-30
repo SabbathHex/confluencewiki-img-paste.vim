@@ -15,7 +15,7 @@ function! s:SafeMakeDir()
             let outdir = expand('%:p:h') . '/' . g:mdip_imgdir
         endif
     else
-	let outdir = g:mdip_imgdir
+        let outdir = g:mdip_imgdir
     endif
     if !isdirectory(outdir)
         call mkdir(outdir)
@@ -225,5 +225,5 @@ if !exists('g:mdip_imgname')
     let g:mdip_imgname = 'image'
 endif
 if !exists('g:mdip_behavior')
-	let g:mdip_behavior = 'markdown'
+    let g:mdip_behavior = 'markdown'
 endif
